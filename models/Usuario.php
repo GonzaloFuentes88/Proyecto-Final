@@ -38,5 +38,9 @@ abstract class Usuario {
     public function setRol(string $rol): void {
         $this->rol = $rol;
     }
+
+    // public function __toString(): string {
+    //     return "Nombre: $this->nombre";
+    // }
 }
 ?>

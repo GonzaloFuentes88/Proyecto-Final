@@ -81,5 +81,10 @@ class Alumno extends Usuario {
     public function setEmpleosPostulados(array $empleosPostulados): void {
         $this->empleosPostulados = $empleosPostulados;
     }
+
+    public function __toString(): string {
+        $usuarioString = parent::__toString(); // Llama al método __toString() de la clase padre
+        return "$usuarioString, Apellido: $this->apellidoAlumno";
+    }
 }
 ?>
