@@ -1,13 +1,13 @@
 <?php
-// require_once '../config/Database.php';
+require_once './dal/Database.php';
 
-// $database = new Database();
-// $conn = $database->getConnection();
+$database = new Database();
+$conn = $database->getConnection();
 
-// if ($conn) {
-//     echo "Conexión exitosa a la base de datos";
-// } else {
-//     echo "Error al conectar a la base de datos";
-// }
+if ($conn) {
+    echo "Conexión exitosa a la base de datos";
+} else {
+    echo "Error al conectar a la base de datos";
+}
 
 echo "Hola mundo";
