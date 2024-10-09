@@ -1,0 +1,30 @@
+.container-notif {
+    background-color: #E1E7D0; /* Color de fondo */
+    border-radius: 15px; /* Bordes circulares */
+    padding: 20px; /* Espaciado interno */
+    text-align: center; /* Centra el texto dentro del div */
+    margin: 20px auto; /* Centra el div en la página */
+    width: flex; /* Ajusta el ancho al contenido */
+    display: flex; /* Usar flexbox */
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan */
+    justify-content: space-around; /* Espacia los elementos */
+}
+
+.notif-item {
+    width: 100%; /* Asegúrate de que ocupe el 100% del ancho del contenedor */
+    margin-bottom: 20px; /* Espacio entre elementos */
+}
+
+
+.notif-titulo{
+    font-size: 20px;
+}
+
+.mt-4 {
+    margin-top: 1.5rem; /* Espacio adicional entre secciones */
+}
+
+.notif-titulo i {
+    font-size: 24px; /* Tamaño del icono */
+    margin-right: 8px; /* Espacio entre el icono y el texto */
+}
