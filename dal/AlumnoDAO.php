@@ -31,7 +31,7 @@ class AlumnoDAO {
     
             if ($stmtAlumno->rowCount() > 0) {
                 $rowAlumno = $stmtAlumno->fetch(PDO::FETCH_ASSOC);
-                echo json_encode($rowAlumno);
+                // echo json_encode($rowAlumno);
                 $alumno = new Alumno();
                 $alumno->setNombre($rowAlumno['NombreAlumno']);
                 $alumno->setApellidoAlumno($rowAlumno['ApellidoAlumno']);

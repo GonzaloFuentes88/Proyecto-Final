@@ -39,8 +39,8 @@ abstract class Usuario {
         $this->rol = $rol;
     }
 
-    // public function __toString(): string {
-    //     return "Nombre: $this->nombre";
-    // }
+    public function __toString(): string {
+        return "Nombre: $this->nombre";
+    }
 }
 ?>
