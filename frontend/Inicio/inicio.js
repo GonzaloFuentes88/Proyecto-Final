@@ -13,9 +13,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         console.log("ANTES")
         const data = await iniciarSesion(email, password);
-        console.log("DESPUES", data)
+        console.log("DESPUES ISSUE", data)
         if(data.success){
             window.location.href = "../Alumno/Empleos-Alumno/empleos-alumno.html";
+        }else if (formInicio.checkValidity() === false) {
+                // Mostrar los mensajes de error de HTML5
+                formInicio.classList.add("was-validated");
+                // Resetea el Formulario
+                formInicio.reset();
         }
 
         // Simular un proceso de autenticación (podrías hacer algo más complejo aquí)
