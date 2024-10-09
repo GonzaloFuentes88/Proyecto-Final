@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const data = await iniciarSesion(email, password);
         console.log("DESPUES", data)
         if(data.success){
-            window.location.href = "dashboard.html";
+            window.location.href = "../Alumno/Empleos-Alumno/empleos-alumno.html";
         }
 
         // Simular un proceso de autenticación (podrías hacer algo más complejo aquí)
