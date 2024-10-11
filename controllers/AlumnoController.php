@@ -10,8 +10,8 @@ class AlumnoController {
         $this->alumnoDao = new AlumnoDAO();
     }
 
-    public function iniciarSesion(string $email, string $password): ?Alumno {
-        return $this->alumnoDao->iniciarSesion($email, $password);
-    }
+    
 }
 ?>
+
+
