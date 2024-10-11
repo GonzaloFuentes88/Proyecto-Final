@@ -1,4 +1,4 @@
-// Esperar a que el DOM esté completamente cargado
+
 document.addEventListener("DOMContentLoaded", function () {
     const formInicio = document.getElementById('form-inicio');
     const btnRegister = document.getElementById('btnRegister');
@@ -42,7 +42,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 async function iniciarSesion(email, password) {
     try {
-        const response = await fetch('http://localhost/Proyecto-Final-Back/index.php?endpoint=login', {
+        const BASEURL = "localhost:8080/Proyecto-Final-Back/"
+        const response = await fetch(`http://${BASEURL}/index.php?endpoint=login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
