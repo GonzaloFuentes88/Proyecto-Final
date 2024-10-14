@@ -1,5 +1,5 @@
 <?php
-require_once 'vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 class Database {
     private $host;
@@ -10,7 +10,7 @@ class Database {
 
     public function __construct() {
         // Cargar el archivo .env
-        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+        $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
         $dotenv->load();
 
         // Asignar las variables de entorno a las propiedades
