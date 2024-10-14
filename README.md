@@ -18,4 +18,4 @@ Se agrega cambio para el feature de prueba
     git flow feature start nombrebranch*
     git add *
     git commit -m ""
-    git flow feature publish nombrebranch*
+    git flow feature finish nombrebranch*
