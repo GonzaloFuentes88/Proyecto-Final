@@ -98,7 +98,7 @@ class UsuarioController {
 
         $respose = ['success' => false, 'message' => ''];
     
-        if ($typeUser === 'usuario') {
+        if ($typeUser === 'alumno') {
             $nombre = $data['nombre'] ?? '';
             $apellido = $data['apellido'] ?? '';
             $dni = $data['dni'] ?? '';

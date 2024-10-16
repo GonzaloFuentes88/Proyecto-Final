@@ -189,7 +189,7 @@ class UsuarioDAO {
             $this->conn->commit();
     
             return [
-                'success' => false,
+                'success' => true,
                 'message' => 'Registro exitoso.'
             ];
     
