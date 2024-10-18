@@ -17,5 +17,5 @@ Se agrega cambio para el feature de prueba
     git flow init
     git flow feature start nombrebranch*
     git add *
-    git commit -m ""
-    git flow feature publish nombrebranch*
+    git commit -m "cambio"
+    git flow feature publish clara-Implementaciondeclases
