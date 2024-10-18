@@ -14,6 +14,8 @@ Se agrega cambio para el feature de prueba
     DB_PASSWORD=contraseña
 
 ## Como usar git flow
+    git checkout develop
+    git pull origin develop
     git flow init
     git flow feature start nombrebranch*
     git add *
