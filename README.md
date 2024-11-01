@@ -12,7 +12,7 @@ Se agrega cambio para el feature de prueba
     DB_NAME=mydb
     DB_USER=root
     DB_PASSWORD=contraseña
-
+    BASE_URL=Proyecto-Final-Back //Depende de en que proyecto estemos
 ## Como usar git flow
     git checkout develop
     git pull origin develop
