@@ -1,13 +1,16 @@
 <?php
 session_start();
 require_once '../../vendor/autoload.php'; // Ensure you have installed the Google API client library via Composer
+$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__, 2));
+$dotenv->load();
 
 $client = new Google_Client();
-$client->setClientId('452949463455-gid3ocq535j2snago9km48978su1103j.apps.googleusercontent.com');
-$client->setClientSecret('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');
+$client->setClientId($_ENV['GOOGLE_CLIENT_ID']);
+$client->setClientSecret($_ENV['GOOGLE_SECRET_CLIENT']);
 $client->setRedirectUri('http://localhost/Proyecto-Final-Back/views/login_google.php');
 $client->addScope('email');
 $client->addScope('profile');
+
 
 if (isset($_GET['code'])) {
     $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
