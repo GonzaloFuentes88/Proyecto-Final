@@ -61,10 +61,13 @@
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-primary" name="login">Iniciar Sesión</button>
                     <a href="./register.php" class="btn btn-secondary">Registrarse</a>
+                    <a href="login_google.php" class="btn btn-outline-danger">Iniciar sesión con Google</a>
+
                 </div>
             </form>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>
 </html>
