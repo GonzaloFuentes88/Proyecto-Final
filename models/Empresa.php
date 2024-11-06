@@ -13,7 +13,7 @@ class Empresa extends Usuario{
         return $this->telefono;
     }
 
-    public function setTelefono(string $telefono): string {
+    public function setTelefono(string $telefono): void {
         $this->telefono = $telefono;
     }
 
@@ -21,7 +21,7 @@ class Empresa extends Usuario{
         return $this->contraseña;
     }
 
-    public function setContraseña(string $contraseña): string {
+    public function setContraseña(string $contraseña): void {
         $this->contraseña = $contraseña;
     }
 

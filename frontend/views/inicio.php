@@ -15,7 +15,7 @@
                     header("Location: ./admin-perfil.php");
                     exit();
                 case 'Empresa':
-                    header("Location: ./empresa-perfil.php");
+                    header("Location: ./empresa-visualizar-perfil.php");
                     exit();
             }
         }else {
