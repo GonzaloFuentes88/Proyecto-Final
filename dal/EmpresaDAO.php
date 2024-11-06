@@ -3,7 +3,7 @@ require_once 'Database.php';
 require_once __DIR__ . '/../models/Usuario.php';
 require_once __DIR__ . '/../models/Empresa.php';
 require_once __DIR__ . '/../models/Modalidad.php';
-
+require_once __DIR__ . '/../models/Jornada.php';
 
 class EmpresaDAO {
     private PDO $conn;
@@ -11,7 +11,27 @@ class EmpresaDAO {
     public function __construct() {
         $this->conn = (new Database())->getConnection();
     }
-    public function getModalidades() {
+    public function listarJornadas() {
+        $queryJornadas = "SELECT * FROM jornada";
+        $stmt = $this->conn->prepare($queryJornadas);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            $jornadas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            $jornadasArray = [];
+            foreach($jornadas as $jornada){
+                $id = $jornada['idJornada'];
+                $descripcion = $jornada['DescripcionJornada'];
+                $jornadaOBJ = new Jornada($id, $descripcion);
+                $jornadasArray[] = $jornadaOBJ->toArray();
+            }
+            if($jornadasArray){
+                return $jornadasArray;
+            }
+        }
+        return null;
+    }
+    public function listarModalidades() {
         $queryModalidades = "SELECT * FROM modalidad";
         $stmt = $this->conn->prepare($queryModalidades);
         $stmt->execute();

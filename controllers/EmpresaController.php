@@ -18,14 +18,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['modalidades'])) {
     $resultado = $empresaController->listarModalidades();
     return $resultado;
     exit;
+
+}elseif($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['jornadas'])) {
+    $resultado = $empresaController->listarJornadas();
+    return $resultado;
+    exit;
 }
 class EmpresaController {
     private EmpresaDAO $empresaDAO;
     public function __construct() {
         $this->empresaDAO = new EmpresaDAO();
     }
+    public function listarJornadas(){
+        $jornadas = $this->empresaDAO->listarJornadas();
+        if($jornadas){
+            http_response_code(200);
+            echo json_encode([
+                "success" => true,
+                "body" => $jornadas
+            ]);
+            return;
+        }
+        else {
+            http_response_code(500);
+            echo json_encode([
+                'success' => false,
+                'message' => 'Error: No se encontraron jornadas',
+            ]);
+        }
+    }
     public function listarModalidades(){
-        $modalidades = $this->empresaDAO->getModalidades();
+        $modalidades = $this->empresaDAO->listarModalidades();
         if($modalidades){
             http_response_code(200);
             echo json_encode([

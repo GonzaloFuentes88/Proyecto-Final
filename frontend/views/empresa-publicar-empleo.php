@@ -62,11 +62,6 @@ if (!in_array($_SESSION['user']['user_type'], $allowedRoles)) {
                             <label for="jornada" class="form-label">Jornada</label>
                             <select class="form-select" id="jornada" name="jornada" required>
                                 <option value="" disabled selected>Seleccione un tipo de jornada</option>
-                                <option value="jornada-completa">Jornada completa</option>
-                                <option value="media-jornada">Media jornada</option>
-                                <option value="practicas">Practicas</option>
-                                <option value="voluntario">Voluntario</option>
-                                <option value="otro">Otro</option>
                             </select>
                         </div>
                     </div>
