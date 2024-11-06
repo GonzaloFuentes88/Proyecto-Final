@@ -21,6 +21,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $endpoint === "register") {
     exit;
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $endpoint === "getHabilidades") {
+    $resultado = $alumnoController->getHabilidades();
+    return $resultado;
+    exit;
+}
+
 class AlumnoController {
     private AlumnoDAO $alumnoDao;
 
@@ -31,16 +37,19 @@ class AlumnoController {
     public function editarPerfilAlumno($id) {
         $email = $_POST['email'] ? $_POST['email'] : NULL;
         $password = $_POST['contraseña'] ? $_POST['contraseña'] : NULL;
-        $nombreCompleto = $_POST['nombreCompleto'] ? $_POST['nombreCompleto'] : NULL ;
+        $nombre = $_POST['nombre'] ? $_POST['nombre'] : NULL ;
+        $apellido = $_POST['apellido'] ? $_POST['apellido'] : NULL ;
         $telefono = $_POST['telefono'] ? $_POST['telefono'] : NULL;
-        $habilidades = /*$_POST['habilidad'] ? $_POST['habilidad'] : */ NULL;
+        $username = $_POST['username'] ? $_POST['username'] : NULL;
+        $habilidades = $_POST['habilidadesSeleccionadas'] ? $_POST['habilidadesSeleccionadas'] : NULL;
         $carrera = /* $_POST['carrera'] ? $_POST['carrera'] : */ NULL;
         $planEstudios = /*$_POST['planEstudios'] ? $_POST['planEstudios'] : */NULL;
         $materias = /*$_POST['materia'] ? $_POST['materia'] : */NULL;
-        $apellido = NULL;
-        $direccion = NULL;
+        $direccion = $_POST['direccion'] ? $_POST['username'] : NULL;
+        $deBaja = NULL;
+        $fotoPerfil = NULL;
 
-        $check = $this->alumnoDao->editarPerfilAlumno($id, $email, $password, $nombreCompleto, $apellido, $telefono, $direccion, $fotoPerfil, $deBaja, $habilidades, $planEstudios, $materias);
+        $check = $this->alumnoDao->editarPerfilAlumno($id, $email, $username,$password, $nombre, $apellido, $telefono, $direccion, $fotoPerfil, $deBaja, $habilidades, $planEstudios, $materias);
 
         if ($check) {
             return [
@@ -54,6 +63,10 @@ class AlumnoController {
             ];
         }
 
+    }
+
+    public function getHabilidades(){
+        return $this->alumnoDao->getHabilidades();
     }
 
     
