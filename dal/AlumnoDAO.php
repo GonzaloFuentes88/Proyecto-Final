@@ -3,6 +3,7 @@ require_once 'Database.php';
 require_once __DIR__ . '/../models/Usuario.php';
 require_once __DIR__ . '/../models/Alumno.php';
 require_once __DIR__ . '/../models/Habilidad.php';
+require_once __DIR__ . '/../models/Evento.php';
 
 class AlumnoDAO
 {
@@ -188,5 +189,37 @@ class AlumnoDAO
         }
 
         return $habilidades;
+    }
+
+
+    
+
+    public function getEventos() {
+        $queryEventos = "SELECT * FROM evento";
+        $stmt = $this->conn->prepare($queryEventos);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            $eventos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            $eventosArray = [];
+            foreach($eventos as $evento){
+                $id = $evento['idEvento'];
+                $descripcion = $evento['descripcionEvento'];
+                $nombre = $evento['NombreEvento'];
+                $fecha = $evento['FechaEvento'];
+                $tipo = $evento['tipoEvento'];
+                $creditos = $evento['creditosEvento'];
+                //$ubicacion = $evento['ubicacion']; falta en la bbdd
+                //$modalidad = $evento['modalidad']; falta en la bbdd
+                
+                $eventoOBJ = new Evento($id, $nombre, $fecha, $descripcion, $creditos, $tipo);
+                //$eventoOBJ = new Evento($id, $nombre, $fecha, $ubicacion, $modalidad, $descripcion, $creditos, $tipo); agregando $ubicacion, $modalidad que falta en la bbdd
+                $eventosArray[] = $eventoOBJ->toArray();
+            }
+            if($eventosArray){
+                return $eventosArray;
+            }
+        }
+        return null;
     }
 }

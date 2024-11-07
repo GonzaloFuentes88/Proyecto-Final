@@ -69,6 +69,25 @@ class AlumnoController {
         return $this->alumnoDao->getHabilidades();
     }
 
+    public function listarEventos(){
+        $eventos = $this->alumnoDao->getEventos();
+        if($eventos){
+            
+            $response = [
+                "success" => true,
+                "body" => $eventos
+            ];
+            return $response;
+        }
+        else {
+            
+            $response = [
+                'success' => false,
+                'message' => 'Error: No se encontraron eventos',
+            ];
+            return $response;
+        }
+    }
     
 }
 ?>
