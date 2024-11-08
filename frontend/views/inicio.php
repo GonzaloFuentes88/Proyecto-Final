@@ -11,7 +11,7 @@
                 case 'Alumno':
                     header("Location: ./alumno-perfil.php");
                     exit();
-                case 'Admin':
+                case 'Administrador':
                     header("Location: ./admin-perfil.php");
                     exit();
                 case 'Empresa':
