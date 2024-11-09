@@ -18,9 +18,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['modalidades'])) {
     $resultado = $empresaController->listarModalidades();
     return $resultado;
     exit;
-
 }elseif($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['jornadas'])) {
     $resultado = $empresaController->listarJornadas();
+    return $resultado;
+    exit;
+}elseif($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['carreras'])) {
+    $resultado = $empresaController->listarCarreras();
+    return $resultado;
+    exit;
+}elseif($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_carrera'])) {
+    $resultado = $empresaController->obtenerPlanesEstudio();
+    return $resultado;
+    exit;
+}elseif($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['idPlanEstudio'])) {
+    $resultado = $empresaController->obtenerMaterias();
     return $resultado;
     exit;
 }
@@ -28,6 +39,62 @@ class EmpresaController {
     private EmpresaDAO $empresaDAO;
     public function __construct() {
         $this->empresaDAO = new EmpresaDAO();
+    }
+    public function listarCarreras(){
+        $carreras = $this->empresaDAO->listarCarreras();
+        if($carreras){
+            http_response_code(200);
+            echo json_encode([
+                "success" => true,
+                "body" => $carreras
+            ]);
+            return;
+        }
+        else {
+            http_response_code(500);
+            echo json_encode([
+                'success' => false,
+                'message' => 'Error: No se encontraron carreras',
+            ]);
+        }
+    }
+    public function obtenerMaterias() {
+        $id = $_GET['idPlanEstudio'];
+        $materias = $this->empresaDAO->obtenerMaterias($id);
+        if($materias){
+            http_response_code(200);
+            echo json_encode([
+                "success" => true,
+                "body" => $materias
+            ]);
+            return;
+        }
+        else {
+            http_response_code(500);
+            echo json_encode([
+                'success' => false,
+                'message' => 'Error: No se encontraron materias para este plan de estudios',
+            ]);
+        }
+    }
+    public function obtenerPlanesEstudio() {
+        $id = $_GET['id_carrera'];
+        $planesEstudio = $this->empresaDAO->obtenerPlanesEstudio($id);
+        if($planesEstudio){
+            http_response_code(200);
+            echo json_encode([
+                "success" => true,
+                "body" => $planesEstudio
+            ]);
+            return;
+        }
+        else {
+            http_response_code(500);
+            echo json_encode([
+                'success' => false,
+                'message' => 'Error: No se encontraron planes estudio para esta carrera',
+            ]);
+        }
     }
     public function listarJornadas(){
         $jornadas = $this->empresaDAO->listarJornadas();

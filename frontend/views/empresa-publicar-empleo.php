@@ -94,12 +94,6 @@ if (!in_array($_SESSION['user']['user_type'], $allowedRoles)) {
                             <label for="carrera" class="form-label">Carrera</label>
                             <select class="form-select" id="carrera" name="carrera" required>
                                 <option value="" disabled selected>Seleccione una opción</option>
-                                <option value="Desarrollo de Software">Desarrollo de Software</option>
-                                <option value="Turismo">Turismo</option>
-                                <option value="Comercio Internacional">Comercio Internacional</option>
-                                <option value="Gestión Aeroportuaria">Gestión Aeroportuaria</option>
-                                <option value="Logistica">Logistica</option>
-                                <option value="Higiene y Seguridad">Higiene y Seguridad</option>
                             </select>
 
                             <label for="planEstudios" class="form-label mt-3 d-none" id="planEstudiosLabel">Plan de Estudios</label>
@@ -112,14 +106,14 @@ if (!in_array($_SESSION['user']['user_type'], $allowedRoles)) {
                             <select class="form-select d-none" id="materia" name="materia">
                                 <option value="" disabled selected>Seleccione una materia</option>
                             </select>
-                            <button type="button" class="btn btn-secondary mt-2 d-none" id="agregarMateria">Agregar
+                            <button type="button" class="btn btn-secondary my-2 d-none" id="agregarMateria">Agregar
                                 Materia Aprobada</button>
                         </div>
-                        <div class="col-md-6">
-                            <ul id="materiasAprobadasList" class="mb-3"></ul>
+                        <div class="col-md-6 p-0">
+                            <ul id="materiasAprobadasList" class="mb-3 p-0"></ul>
                         </div>
                     </div>
-                    <button type="submit" class="btn mt-2">Guardar</button>
+                    <button type="submit" class="btn btn-secondary mt-2">Guardar</button>
                 </div>
             </form>
         </div>

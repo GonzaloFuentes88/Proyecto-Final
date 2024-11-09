@@ -4,12 +4,90 @@ require_once __DIR__ . '/../models/Usuario.php';
 require_once __DIR__ . '/../models/Empresa.php';
 require_once __DIR__ . '/../models/Modalidad.php';
 require_once __DIR__ . '/../models/Jornada.php';
+require_once __DIR__ . '/../models/Carrera.php';
+require_once __DIR__ . '/../models/PlanEstudio.php';
+require_once __DIR__ . '/../models/Materia.php';
 
 class EmpresaDAO {
     private PDO $conn;
 
     public function __construct() {
         $this->conn = (new Database())->getConnection();
+    }
+    public function listarCarreras() {
+        $queryCarreras = "SELECT * FROM carrera";
+        $stmt = $this->conn->prepare($queryCarreras);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            $carreras = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            $carrerasArray = [];
+            foreach($carreras as $carrera){
+                $id = $carrera['idCarrera'];
+                $nombreCarrera = $carrera['NombreCarrera'];
+                $planEstudios = $this->obtenerPlanesEstudio($id);
+                $carreraOBJ = new Carrera($id, $nombreCarrera, $planEstudios);
+                $carrerasArray[] = $carreraOBJ->toArray();
+            }
+            if($carrerasArray){
+                return $carrerasArray;
+            }
+        }
+        return null;
+    }
+    public function obtenerMaterias($idPlanEstudio) {
+        $queryMaterias = "
+            SELECT 
+                m.idMateria, 
+                m.NombreMateria, 
+                m.DetalleMateria
+            FROM 
+                materia m
+            JOIN 
+                planxmateria pm ON m.idMateria = pm.FK_idMateria
+            WHERE 
+                pm.FK_idPlanCarrera = :idPlanEstudio;
+        ";
+        $stmt = $this->conn->prepare($queryMaterias);
+        $stmt->bindParam(':idPlanEstudio', $idPlanEstudio, PDO::PARAM_INT);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            $materias = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            $materiasArray = [];
+            foreach($materias as $materia){
+                $id = $materia['idMateria'];
+                $nombreMateria = $materia['NombreMateria'];
+                $DetalleMateria = $materia['DetalleMateria'];
+                $materiaOBJ = new Materia($id, $nombreMateria, $DetalleMateria);
+                $materiasArray[] = $materiaOBJ->toArray();
+            }
+            if($materiasArray){
+                return $materiasArray;
+            }
+        }
+        return null;
+    }
+    public function obtenerPlanesEstudio($idCarrera) {
+        $queryPlanes = "SELECT * FROM planestudio WHERE FK_idCarrera = :idCarrera";
+        $stmt = $this->conn->prepare($queryPlanes);
+        $stmt->bindParam(':idCarrera', $idCarrera, PDO::PARAM_INT);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            $planes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            $planesArray = [];
+            foreach($planes as $plan){
+                $id = $plan['idPlanEstudio'];
+                $nombrePlan = $plan['NombrePlanEstudio'];
+                $planOBJ = new PlanEstudio($id, $nombrePlan);
+                $planesArray[] = $planOBJ->toArray();
+            }
+            if($planesArray){
+                return $planesArray;
+            }
+        }
+        return null;
     }
     public function listarJornadas() {
         $queryJornadas = "SELECT * FROM jornada";
