@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../controllers/EmpresaController.php';
+$empresaController = new EmpresaController();
 session_start();
 if (!isset($_SESSION['user'])) {
     header("Location: ./inicio.php");
@@ -8,6 +10,9 @@ $allowedRoles = ['Empresa'];
 if (!in_array($_SESSION['user']['user_type'], $allowedRoles)) {
     echo "Acceso denegado. No tienes permisos para acceder a esta página.";
     exit();
+}
+if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['publicarEmpleo'])){
+   $result = $empresaController->publicarEmpleo();
 }
 ?>
 
@@ -33,7 +38,7 @@ if (!in_array($_SESSION['user']['user_type'], $allowedRoles)) {
                     </div>
                 </div>
             </div>
-            <form class="row g-3">
+            <form method="POST" class="row g-3">
                 <div class="col-md-12">
                     <div class="row mb-3">
                         <div class="col-md-6">
@@ -83,9 +88,9 @@ if (!in_array($_SESSION['user']['user_type'], $allowedRoles)) {
                             <option value="JavaScript">
                             <option value="Base de Datos">
                         </datalist>
-                        <button type="button" class="btn btn-secondary mt-2" id="agregarHabilidad">Agregar
+                        <button type="button" class="btn btn-secondary my-2" id="agregarHabilidad">Agregar
                             Habilidad</button>
-                        <ul id="listaHabilidades" class="mb-3"></ul>
+                        <ul id="listaHabilidades" class="p-0 mb-3 d-flex gap-2"></ul>
                     </div>
                     <div class="row justify-content-between">
                         <h2 class="datospersonales-header">Materias requeridas</h2>
@@ -113,7 +118,7 @@ if (!in_array($_SESSION['user']['user_type'], $allowedRoles)) {
                             <ul id="materiasAprobadasList" class="mb-3 p-0"></ul>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-secondary mt-2">Guardar</button>
+                    <button type="submit" class="btn btn-secondary mt-2" name="publicar_empleo">Guardar</button>
                 </div>
             </form>
         </div>

@@ -34,11 +34,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['modalidades'])) {
     $resultado = $empresaController->obtenerMaterias();
     return $resultado;
     exit;
+}elseif($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['habilidad'])) {
+    $resultado = $empresaController->obtenerHabilidad($_GET['habilidad']);
+    return $resultado;
+    exit;
 }
+   
+
+
 class EmpresaController {
     private EmpresaDAO $empresaDAO;
     public function __construct() {
         $this->empresaDAO = new EmpresaDAO();
+    }
+    public function publicarEmpleo(){
+        $result = $this->empresaDAO->publicarEmpleo();
+        return $result;
     }
     public function listarCarreras(){
         $carreras = $this->empresaDAO->listarCarreras();
@@ -130,6 +141,23 @@ class EmpresaController {
                 'success' => false,
                 'message' => 'Error: No se encontraron modalidades',
             ]);
+        }
+    }
+    public function obtenerHabilidad($nombreHabilidad)
+    {
+        $habilidad = $this->empresaDAO->obtenerHabilidad($nombreHabilidad);
+        if ($habilidad) {
+            echo json_encode([
+                'success' => true,
+                'body' => $habilidad
+            ]);
+            return;
+        } else {
+            echo json_encode([
+                'success' => false,
+                'message' => 'Error: No se encontro la habilidad',
+            ]);
+            return;
         }
     }
 }

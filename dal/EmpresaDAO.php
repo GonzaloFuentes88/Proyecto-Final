@@ -7,12 +7,16 @@ require_once __DIR__ . '/../models/Jornada.php';
 require_once __DIR__ . '/../models/Carrera.php';
 require_once __DIR__ . '/../models/PlanEstudio.php';
 require_once __DIR__ . '/../models/Materia.php';
+require_once __DIR__ . '/../models/Habilidad.php';
 
 class EmpresaDAO {
     private PDO $conn;
 
     public function __construct() {
         $this->conn = (new Database())->getConnection();
+    }
+    public function publicarEmpleo() {
+        $query = "INSERT INTO "
     }
     public function listarCarreras() {
         $queryCarreras = "SELECT * FROM carrera";
@@ -32,6 +36,23 @@ class EmpresaDAO {
             if($carrerasArray){
                 return $carrerasArray;
             }
+        }
+        return null;
+    }
+    public function obtenerHabilidad($nombreHabilidad)
+    {
+        $query = "SELECT * FROM habilidad WHERE Descripcion = :nombreHabilidad";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':nombreHabilidad', $nombreHabilidad);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $habilidad = new Habilidad();
+
+            $habilidad->setId($row['idHabilidad']);
+            $habilidad->setNombreHabilidad($row['Descripcion']);
+            $habilidad = $habilidad->toArray();
+            return $habilidad;
         }
         return null;
     }
@@ -134,18 +155,18 @@ class EmpresaDAO {
             INSERT INTO EMPLEO (Titulo, Modalidad, Ubicacion, Jornada, Descripcion, Habilidad, Carrera, Plan_Estudios, Materia)
             VALUES (:titulo, :modalidad, :ubicacion, :jornada, :descripcion, :habilidad, :carrera, :plan_estudios, :materia)
         ";
-        $connPrepare = $this->conn->prepare($queryEmpleo);
-        $connPrepare->bindParam(':titulo', $titulo);
-        $connPrepare->bindValue(':modalidad', $modalidad);
-        $connPrepare->bindValue(':ubicacion', $ubicacion);
-        $connPrepare->bindValue(':jornada', $jornada);
-        $connPrepare->bindValue(':descripcion', $descripcion);
-        $connPrepare->bindValue(':habilidad', $habilidad);
-        $connPrepare->bindValue(':carrera', $carrera);
-        $connPrepare->bindValue(':plan_estudios', $plan_estudios);
-        $connPrepare->bindValue(':materia', $materia);
+        $stmt = $this->conn->prepare($queryEmpleo);
+        $stmt->bindParam(':titulo', $titulo);
+        $stmt->bindValue(':modalidad', $modalidad);
+        $stmt->bindValue(':ubicacion', $ubicacion);
+        $stmt->bindValue(':jornada', $jornada);
+        $stmt->bindValue(':descripcion', $descripcion);
+        $stmt->bindValue(':habilidad', $habilidad);
+        $stmt->bindValue(':carrera', $carrera);
+        $stmt->bindValue(':plan_estudios', $plan_estudios);
+        $stmt->bindValue(':materia', $materia);
     
-        // Ejecutar la consulta
-        return $connPrepare->execute();
+        $stmt->execute();
+        return null;
     }
 }

@@ -11,12 +11,45 @@ const materiaSelect = document.getElementById('materia');
 const materiaLabel = document.getElementById('materiaLabel');
 const agregarMateriaBtn = document.getElementById('agregarMateria');
 const materiasAprobadasList = document.getElementById('materiasAprobadasList');
-const habilidadSelect = document.getElementById('habilidad');
+const habilidadInput = document.getElementById('habilidad');
 const habilidaderror = document.getElementById('habilidaderror');
 const carreraerror = document.getElementById('carreraerror');
 const planerror = document.getElementById('planerror');
 const listaHabilidades = document.getElementById('listaHabilidades');
+const agregarHabilidadBtn = document.getElementById('agregarHabilidad');
 
+async function agregarHabilidad() {
+    let habilidadText = habilidadInput.value;
+    habilidadText = habilidadText.toLowerCase()
+
+    let habilidades = listaHabilidades.querySelectorAll('li')
+    habilidades = Array.from(habilidades).map(habilidad => habilidad.textContent.toLowerCase())
+
+    if (!habilidadText || habilidades.includes(habilidadText)) {
+        return; 
+    }
+    const response = await fetch(`http://localhost/Proyecto-Final-Back/controllers/EmpresaController.php?habilidad=${habilidadText}`)
+    if(!response.ok) {
+        throw new Error(`Errors: ${response.status}`)
+    }
+    const json = await response.json()
+    if(json.success){
+        const option = document.createElement('li');
+        option.textContent = json.body.nombreHabilidad
+        const deleteIcon = document.createElement('i');
+        deleteIcon.classList.add('fas', 'fa-trash', 'ms-2'); 
+        deleteIcon.id = 'borrarHabilidad';
+        deleteIcon.style.cursor = 'pointer';
+    
+        deleteIcon.addEventListener('click', function() {
+            option.remove();
+        });
+    
+        option.appendChild(deleteIcon);
+        option.classList.add('bg-secondary', 'text-white', 'p-2', 'rounded','d-inline-block')
+        listaHabilidades.appendChild(option)
+    }
+}
 function carreraChange() {
 
     planEstudiosSelect.innerHTML = '';
@@ -129,7 +162,7 @@ function agregarMateria() {
 
     const selectedOption = materiaSelect.options[materiaSelect.selectedIndex];
 
-    if (!materiaSelect || selectedOption.value === ""/* || materias.includes(selectedOption.textContent)*/) {
+    if (!materiaSelect || selectedOption.value === "" || materias.includes(selectedOption.textContent)) {
         return; 
     }
 
@@ -155,3 +188,4 @@ function agregarMateria() {
 carreraSelect.addEventListener('change', carreraChange);
 planEstudiosSelect.addEventListener('change', planEstudioChange);
 document.getElementById('agregarMateria').addEventListener('click', agregarMateria);
+agregarHabilidadBtn.addEventListener('click', agregarHabilidad);
