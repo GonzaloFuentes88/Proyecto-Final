@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const postulacionData = {
                 empleoId: empleoId
             };
-            const BASEURL = "localhost:80/TP-Programacion-WEB";  
+            const BASEURL = "localhost:80/Proyecto-Final-Back";  
             fetch(`http://${BASEURL}/controllers/AlumnoController.php?aplicarEmpleo`, {
                 method: 'POST',
                 headers: {
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     async function checkPostulacion(empleoId) {
-        const response = await fetch(`http://localhost:80/TP-Programacion-WEB/controllers/AlumnoController.php?checkPostulacion`, {
+        const response = await fetch(`http://localhost:80/Proyecto-Final-Back/controllers/AlumnoController.php?checkPostulacion`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

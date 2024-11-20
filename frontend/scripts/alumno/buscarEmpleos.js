@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault();
 
         const query = buscarInput.value.trim();
-        let url = 'http://localhost/TP-Programacion-WEB/controllers/AlumnoController.php?buscarEmpleos=';
+        let url = 'http://localhost/Proyecto-Final-Back/controllers/AlumnoController.php?buscarEmpleos=';
 
         if (query !== '') {
             url += encodeURIComponent(query);
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     async function checkPostulacion(empleoId) {
         try {
-            const response = await fetch('http://localhost/TP-Programacion-WEB/controllers/AlumnoController.php?checkPostulacion', {
+            const response = await fetch('http://localhost/Proyecto-Final-Back/controllers/AlumnoController.php?checkPostulacion', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

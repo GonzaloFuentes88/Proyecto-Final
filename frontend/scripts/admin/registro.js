@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Función para manejar el registro
     async function registrarse(userData) {
         try {
-            const BASEURL = "localhost:80/TP-Programacion-WEB";  // Asegúrate de que el BASEURL sea correcto
+            const BASEURL = "localhost:80/Proyecto-Final-Back";  // Asegúrate de que el BASEURL sea correcto
             const response = await fetch(`http://${BASEURL}/controllers/AdministradorController.php?endpoint=register`, {
                 method: 'POST',
                 headers: {

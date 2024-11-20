@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     async function registrarse(userData) {
         try {
-            const BASEURL = "localhost:80/TP-Programacion-WEB";
+            const BASEURL = "localhost:80/Proyecto-Final-Back";
             const response = await fetch(`http://${BASEURL}/controllers/UsuarioController.php?endpoint=register`, {
                 method: 'POST',
                 headers: {
