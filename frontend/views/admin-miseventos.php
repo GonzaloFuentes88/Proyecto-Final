@@ -42,7 +42,10 @@ $eventos = $administradorController->getEventosDeAdmin();
                     aria-label="Search">
                 <button class="botonFiltro btn btn-light border border-success-subtle" type="submit">Filtrar</button>
             </form>
-
+            <div class="row mb-3">
+            <a href="<?php echo BASE_URL ?>views/admin-publicar-evento.php"><button class="btn btn-outline-success">Publicar
+                        evento</button></a>
+            </div>
             <?php if (!empty($eventos)): ?>
                 <div class="row mb-5 list-group col-12 p-0">
                     <?php foreach ($eventos as $evento): 

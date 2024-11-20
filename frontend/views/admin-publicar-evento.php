@@ -15,7 +15,7 @@ if (!in_array($_SESSION['user']['user_type'], $allowedRoles)) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['guardarEvento'])) {
     $evento = $administradorController->crearEvento();
-    header("Location: ./admin-eventos.php");
+    header("Location: ./admin-miseventos.php");
     exit();
 }
 
