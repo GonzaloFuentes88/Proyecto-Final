@@ -24,7 +24,8 @@ $eventos = $administradorController->getEventos();
 <head>
     <?php require __DIR__ . '/../components/header.php' ?>
     <link rel="stylesheet" href="<?php echo BASE_URL ?>css/admin-eventos.css">
-    <script src="<?php echo BASE_URL ?>scripts/admiin/eventos.js" defer></script>
+    <script src="<?php echo BASE_URL ?>scripts/admin/eventos.js" defer></script>
+    <script src="<?php echo BASE_URL ?>scripts/admin/eventos-admin.js" defer></script>
 </head>
 <body class="bg-inicio">
     <?php require __DIR__ . '/../components/admin-navbar.php' ?>
