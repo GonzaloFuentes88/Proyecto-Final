@@ -1,7 +1,7 @@
 <?php
     require_once __DIR__ . '/../../controllers/validate-session.php';
 
-    $allowedRoles = ['Administrador'];
+    $allowedRoles = ['1'];
     validarSesion($allowedRoles);
 ?>
 
@@ -41,7 +41,7 @@
                         </div>
                         <div class="mt-4">
                             <strong>Créditos:</strong>
-                            <p>0.5</dpiv>
+                            <p>0.5</p>
                         </div>
 
                     </div>

@@ -8,17 +8,17 @@
         if($resultado['success']) {
             $_SESSION['user'] = $resultado['usuario'];
             switch($resultado['usuario']['user_type']) {
-                case 'Alumno':
-                    header("Location: ./alumno-perfil.php");
+                case '1':
+                    header("Location: ./admin-gestionar-usuarios.php");
                     exit();
-                case 'Administrador':
-                    header("Location: ./admin-perfil.php");
+                case '2':
+                    header("Location: ./alumno-empleos.php");
                     exit();
-                case 'Empresa':
-                    header("Location: ./empresa-visualizar-perfil.php");
+                case '3':
+                    header("Location: ./empresa-visualizar-publicaciones.php");
                     exit();
             }
-        }else {
+        } else {
             $error = "Credenciales incorrectas. Por favor, intenta de nuevo.";
         }
     }
@@ -38,7 +38,7 @@
     <div class="container-fluid min-vh-100 d-flex justify-content-center align-items-center">
         <div class="col-sm-4 rounded-5 p-4 bg-opacity-75 w-auto shadow-lg bg-navbar">
             <div class="text-center mb-3 p-3">
-                <img src="../img/logo.png" alt="logo" class="img-fluid">
+                <img src="../img/logo.png" alt="logo" class="img-fluid ">
             </div>
             <form method="POST" id="form-inicio" class="g-3" novalidate>
                 <h2 class="text-center mb-4 mx-sm-5 px-sm-5">Iniciar Sesión</h2>
@@ -56,7 +56,7 @@
                     <label for="password">Password</label>
                 </div>
                 <div class="mb-3 text-end">
-                    <a href="forgot-password.html" class="text-secondary">Olvidé mi contraseña</a>
+                    <a href="forgot-password.php" class="text-secondary">Olvidé mi contraseña</a>
                 </div>
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-primary" name="login">Iniciar Sesión</button>

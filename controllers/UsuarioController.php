@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../dal/UsuarioDAO.php';
 require_once __DIR__ . '/../models/Usuario.php';
-
+require_once __DIR__ . '/../models/Empresa.php';
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
@@ -24,7 +24,49 @@ class UsuarioController {
 
     public function __construct() {
         $this->usuarioDao = new UsuarioDAO();
+        
     }
+
+    public function verifyEmail() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = $_POST['mail'] ?? '';
+            $usuarioDAO = new UsuarioDAO();
+            $usuario = $usuarioDAO->buscarPorEmail($email);
+    
+            header('Content-Type: application/json'); // Asegura que el contenido sea JSON
+    
+            // Agregar debug para ver el contenido de la variable usuario
+            error_log("Resultado de la búsqueda de email: " . print_r($usuario, true));
+    
+            if ($usuario) {
+                echo json_encode(['success' => true, 'message' => 'El correo está registrado.']);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'El correo no está registrado.']);
+            }
+        } else {
+            http_response_code(405); // Método no permitido
+            echo json_encode(['success' => false, 'message' => 'Método no permitido.']);
+        }
+    }
+
+    public function resetPassword() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = $_POST['mail'];
+            $newPassword = $_POST['newPassword'];
+
+            $usuarioDAO = new UsuarioDAO();
+            $usuario = $usuarioDAO->buscarPorEmail($email);
+
+            if ($usuario) {
+                $hashPassword = ($newPassword);
+                $usuarioDAO->actualizarClave($usuario['id'], $hashPassword);
+                echo json_encode(['success' => true]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Error al actualizar la contraseña.']);
+            }
+        }
+    }
+
 
     public function iniciarSesion() {
         $email = $_POST['email'] ?? '';
@@ -46,6 +88,7 @@ class UsuarioController {
             ];
         }
     }
+    
 
     public function register() {
         
@@ -76,7 +119,7 @@ class UsuarioController {
             return;
         }
 
-        if ($typeUser === 'alumno') {
+        if ($typeUser == 2) {
             $nombre = htmlspecialchars($input['nombre'] ?? '');
             $apellido = htmlspecialchars($input['apellido'] ?? '');
             $dni = htmlspecialchars($input['dni'] ?? '');
@@ -92,7 +135,7 @@ class UsuarioController {
 
             $respose = $this->usuarioDao->registerAlumno($nombreUsuario, $password, $email, $telefono, $direccion, $nombre, $apellido, $dni);
     
-        } else if ($typeUser === 'empresa') {
+        } else if ($typeUser == 3) {
             $RazonSocial = htmlspecialchars($input['RazonSocial'] ?? '');
             $CUIT = htmlspecialchars($input['CUIT'] ?? '');
 
@@ -122,7 +165,49 @@ class UsuarioController {
             echo json_encode($respose);
             return;
         }
+        
     }
-    
+    public function listarAlumnos(){
+        $alumnos = $this->usuarioDao->listarAlumnos();
+        if($alumnos){
+            return[
+                "success" => true,
+                "body" => $alumnos
+            ];
+        }
+        else {
+            return[
+                'success' => false,
+                'message' => 'Error: No se encontraron alumnos',
+            ];
+        }
+    }  
+    public function obtenerEmpresa(){
+        $idUsuario = $_SESSION['user']['user_id'];
+        $empresa = $this->usuarioDao->obtenerEmpresa($idUsuario);
+        if($empresa){
+            return[
+                "success" => true,
+                "body" => $empresa
+            ];
+        }
+        else {
+            return[
+                'success' => false,
+                'message' => 'Error: No se encontro la empresa',
+            ];
+        }
+    }  
 
+}
+
+
+
+$action = $_GET['action'] ?? '';
+$controller = new UsuarioController();
+
+if ($action === 'verifyEmail') {
+    $controller->verifyEmail();
+} elseif ($action === 'resetPassword') {
+    $controller->resetPassword();
 }

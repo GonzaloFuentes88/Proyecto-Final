@@ -22,32 +22,98 @@
                 </div>
                 
                 <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-primary">Reestablecer contrañesa</button>
+                    <button type="submit" class="btn btn-primary">Reestablecer contraseña</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Modal de Bootstrap -->
-    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <!-- Modal para ingresar nueva contraseña -->
+    <div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header bg-success" id="modalHeader">
-                    <h5 class="modal-title text-white" id="confirmationModalLabel"></h5>
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="resetPasswordModalLabel">Restablecer Contraseña</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" id="modalBody">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" id="modalButton" data-bs-dismiss="modal">Aceptar</button>
-                </div>
+                <form id="reset-password-form">
+                    <div class="modal-body">
+                        <input type="hidden" id="emailInput" name="email">
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label">Nueva Contraseña</label>
+                            <input type="password" id="newPassword" name="newPassword" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Guardar Contraseña</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
-    <!-- Bootstrap y JS -->
+    <script>
+        // Enviar email para verificación
+        document.querySelector('#forgot-password-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.querySelector('#email').value; // Captura el valor del email ingresado
+
+            fetch('http://localhost/TP-Programacion-WEB/controllers/UsuarioController.php?action=verifyEmail', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `mail=${email}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.querySelector('#emailInput').value = email; // Asigna el correo al campo oculto
+                    const modal = new bootstrap.Modal(document.querySelector('#resetPasswordModal'));
+                    modal.show(); // Muestra el modal para ingresar la nueva contraseña
+                } else {
+                    alert(data.message); // Muestra el mensaje de error si el correo no es válido
+                }
+            })
+            .catch(error => {
+                alert('Error al verificar el correo: ' + error.message);
+            });
+        });
+
+        // Enviar nueva contraseña
+        document.querySelector('#reset-password-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.querySelector('#emailInput').value; // Obtiene el correo del campo oculto
+            const newPassword = document.querySelector('#newPassword').value;
+            const confirmPassword = document.querySelector('#confirmPassword').value;
+
+            if (newPassword !== confirmPassword) {
+                alert('Las contraseñas no coinciden.');
+                return;
+            }
+
+            fetch('http://localhost/TP-Programacion-WEB/controllers/UsuarioController.php?action=resetPassword', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `mail=${email}&newPassword=${newPassword}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Contraseña actualizada correctamente.');
+                    window.location.href = 'inicio.php'; // Redirige al usuario a la página de login
+                } else {
+                    alert(data.message); // Muestra un mensaje de error si la actualización falla
+                }
+            })
+            .catch(error => {
+                alert('Error al actualizar la contraseña: ' + error.message);
+            });
+        });
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Script para simular el envío de correo -->
-    <script src="forgot-password.js"></script>
 </body>
 </html>

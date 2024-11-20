@@ -25,7 +25,7 @@ class Jornada {
     public function toArray(): array {
         return [
             'id' => $this->id,
-            'descripcionJornada' => $this->descripcionJornada
+            'descripcion' => $this->descripcionJornada
         ];
     }
 }

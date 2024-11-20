@@ -1,5 +1,4 @@
-﻿# Proyecto-Final-Back
-Se agrega cambio para el feature de prueba
+# TP-Programacion-WEB
 
 ## Como configurar el proyecto
 ### iniciar XAMPP levantando mysql y servidor apache
@@ -12,8 +11,9 @@ Se agrega cambio para el feature de prueba
     DB_NAME=mydb
     DB_USER=root
     DB_PASSWORD=contraseña
-    BASE_URL=Proyecto-Final-Back //Depende de en que proyecto estemos
+
 ## Como usar git flow
+## Por cada nueva implementacion
     git checkout develop
     git pull origin develop
     git flow init
