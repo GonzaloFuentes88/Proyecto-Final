@@ -47,7 +47,7 @@ $eventos = $administradorController->getEventos();
                 <div class="row mb-5">
                     <div class="list-group col-12 p-0">
                         <?php foreach ($eventos as $evento): ?>
-                            <a href="<?php echo BASE_URL ?>views/admin-detalle-evento.php?id=<?php echo $evento->getId(); ?>" class="list-group-item list-group-item-action">
+                            <div class="list-group-item list-group-item-action">
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1"><?php echo htmlspecialchars($evento->getNombreEvento()); ?></h5>
                                 </div>
@@ -60,7 +60,7 @@ $eventos = $administradorController->getEventos();
                                         <strong> Fecha:</strong> <?php echo htmlspecialchars($evento->getFechaEvento()); ?>
                                     </i>
                                 </div>
-                            </a>
+                            </div>
                         <?php endforeach; ?>
                     </div>
                 </div>
